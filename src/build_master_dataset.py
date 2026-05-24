@@ -6,15 +6,19 @@ This will create the final dataset that will be used for all the work.
 
 # Imports
 import pandas as pd
+import numpy as np
+import os
 
 
 # Save file in the selected path
-OUTPUT_PATH = "../data/raw/DatasetMaster.csv"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_PATH = os.path.join(script_dir, "..", "data", "processed", "DatasetMaster.csv")
+os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
 
 
 # Get the two datasets to join
-df_incidents = pd.read_csv('../data/raw/IncidentsDataset.csv')
-df_meteodata = pd.read_csv('../data/raw/CdmxWeather2.csv')
+df_incidents = pd.read_csv('data/processed/IncidentsDataset.csv')
+df_meteodata = pd.read_csv('data/raw/CdmxWeather.csv')
 
 
 # Merge the datasets

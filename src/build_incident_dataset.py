@@ -13,14 +13,18 @@ values were dropped, and time was rounded down to contain only hourly records.
 
 # Imports
 import pandas as pd
+import numpy as np
+import os
 
 # Path to save file
-OUTPUT_PATH = "../data/raw/IncidentsDataset.csv"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+OUTPATH = os.path.join(script_dir, "..", "data", "processed", "IncidentsDataset.csv")
+os.makedirs(os.path.dirname(OUTPATH), exist_ok=True)
 
 # Get all csv into dataframes
-df_mantenimiento_drenaje = pd.read_csv('../data/raw/MantenimientoDrenaje.csv')
-df_mantenimiento_alcantarilla = pd.read_csv('../data/raw/MantenimientoAlcantarilla.csv')
-df_fuga_de_agua = pd.read_csv('../data/raw/FugaDeAgua.csv',  encoding='latin-1')
+df_mantenimiento_drenaje = pd.read_csv('data/raw/MantenimientoDrenaje.csv')
+df_mantenimiento_alcantarilla = pd.read_csv('data/raw/MantenimientoAlcantarilla.csv')
+df_fuga_de_agua = pd.read_csv('data/raw/FugaDeAgua.csv',  encoding='latin-1')
 
 # Only works with geographical columns (dimension on which we'll join datasets)
 required_columns = [
@@ -218,4 +222,4 @@ df_incidents_master.to_csv(OUTPATH, index = False)
 
 print("\n--- INCIDENT REPORT ---")
 print(f"Total rows fetched: {len(df_incidents_master)}")
-print(f"Dataset saved as: {OUTPUT_PATH}")
+print(f"Dataset saved as: {OUTPATH}")
